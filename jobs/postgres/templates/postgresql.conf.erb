@@ -38,6 +38,15 @@ lc_time = 'en_US.UTF-8'
 
 default_text_search_config = 'pg_catalog.english'
 
+# replication
+wal_level = hot_standby
+max_wal_senders = 3
+wal_keep_segments = 16
+<% unless p("databases.master") %>
+hot_standby = on
+<% end %>
+# replication
+
 <% if p("databases.collect_statement_statistics") %>
 shared_preload_libraries = 'pg_stat_statements'
 track_activity_query_size = 4096

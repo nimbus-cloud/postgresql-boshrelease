@@ -1,0 +1,4 @@
+# only on slave
+standby_mode = 'on'
+primary_conninfo = 'host=<%= p("databases.replication_node2") %> port=<%= p("databases.port") %> user=<%= p("databases.replication_user") %> password=<%= p("databases.replication_password") %>'
+# trigger_file = '/tmp/postgresql.trigger'

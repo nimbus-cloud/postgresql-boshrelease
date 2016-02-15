@@ -8,6 +8,7 @@ templates:
   postgres_start.sh.erb: bin/postgres_start.sh
   postgresql.conf.erb: config/postgresql.conf
   pg_hba.conf.erb: config/pg_hba.conf
+  recovery.conf.erb: config/recovery.conf
 
 packages:
   - common
@@ -34,3 +35,14 @@ properties:
     default: false
   databases.additional_config:
     description: "A map of additional key/value pairs to include as extra configuration properties"
+
+  databases.master:
+    description: "Boolean: wheather or not a node is replication master"
+  databases.replication_node1:
+    description: "Ip address of this machine"
+  databases.replication_node2:
+    description: "Ip address of the other machine taking part in replication"
+  databases.replication_user:
+    description: "Replication user"
+  databases.replication_password:
+    description: "Replication password"

@@ -34,6 +34,24 @@ fi
 mkdir -p $DATA_DIR
 chown -R vcap:vcap $DATA_DIR
 
+# initial full copy from master
+# run only on slave for the first time
+<% unless p("databases.master") %>
+if [ ! -f $DATA_DIR/postgresql.conf ]; then
+  su - vcap -c "echo <%= p("databases.replication_password") %> | $PACKAGE_DIR/bin/pg_basebackup -h <%= p("databases.replication_node2") %> -D $DATA_DIR -U <%= p("databases.replication_user") %> -v -P -X stream"
+fi
+
+cp $JOB_DIR/config/recovery.conf $DATA_DIR
+chown vcap:vcap $DATA_DIR/recovery.conf
+<% end %>
+
+# make sure recovery.conf is not on master
+<% if p("databases.master") %>
+if [ ! -f $DATA_DIR/recovery.conf ]; then
+  rm $DATA_DIR/recovery.conf
+fi
+<% end %>
+
 if [ ! -f $DATA_DIR/postgresql.conf ]; then
   # initdb creates data directories
   su - vcap -c "$PACKAGE_DIR/bin/initdb -E utf8 --locale en_US.UTF-8 -D $DATA_DIR"
