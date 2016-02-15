@@ -47,7 +47,7 @@ chown vcap:vcap $DATA_DIR/recovery.conf
 
 # make sure recovery.conf is not on master
 <% if p("databases.master") %>
-if [ ! -f $DATA_DIR/recovery.conf ]; then
+if [ -f $DATA_DIR/recovery.conf ]; then
   rm $DATA_DIR/recovery.conf
 fi
 <% end %>
