@@ -1,7 +1,7 @@
 ---
 name: postgres
 
-description: "The Postgres server provides a single instance Postgres database that can be used with the Cloud Controller or the UAA. It does not provide highly-available configuration."
+description: "Replicated Postgres server."
 
 templates:
   postgres_ctl.erb: bin/postgres_ctl
@@ -19,8 +19,6 @@ properties:
     description: "The database scheme"
   databases.port:
     description: "The database port"
-  databases.address:
-    description: "The database address"
   databases.databases:
     description: "A list of databases and associated properties to create"
   databases.roles:
