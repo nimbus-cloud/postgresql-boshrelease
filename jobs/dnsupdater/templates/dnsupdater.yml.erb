@@ -1,0 +1,12 @@
+---
+master: <%= p("databases.master") %>
+hostname: <%= p("databases.hostname") %>
+ip: <%= p("databases.replication_node1") %>
+
+dnsservers:
+<% p("dns.dnsservers").each do |dnsserver| %>
+  - <%= dnsserver %>
+<% end %>
+
+dnskey: <%= p("dns.key") %>
+dnsttl: <%= p("dns.ttl") %>

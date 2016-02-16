@@ -1,0 +1,6 @@
+---
+name: dnsupdater
+dependencies:
+- golang1.5
+files:
+- github.com/nimbus-cloud/dnsupdater/**/*.{go,golden,proto,c,h,}

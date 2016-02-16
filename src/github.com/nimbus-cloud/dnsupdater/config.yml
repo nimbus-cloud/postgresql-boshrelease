@@ -1,0 +1,15 @@
+---
+master: true
+hostname: ***REMOVED***
+ip: ***REMOVED***
+
+dnsservers:
+  - ***REMOVED***
+  - ***REMOVED***
+  - ***REMOVED***
+  - ***REMOVED***
+  - ***REMOVED***
+  - ***REMOVED***
+
+dnskey: ***REMOVED***
+dnsttl: 30
