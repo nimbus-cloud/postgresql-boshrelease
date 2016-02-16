@@ -1,4 +1,4 @@
-check process gorouter
+check process dnsupdater
   with pidfile /var/vcap/sys/run/dnsupdater/dnsupdater.pid
   start program "/var/vcap/jobs/dnsupdater/bin/dnsupdater_ctl start"
     with timeout 20 seconds
