@@ -34,22 +34,21 @@ fi
 mkdir -p $DATA_DIR
 chown -R vcap:vcap $DATA_DIR
 
+<% if p("databases.master") %>
+# make sure recovery.conf is not on master
+if [ -f $DATA_DIR/recovery.conf ]; then
+  rm $DATA_DIR/recovery.conf
+fi
+<% else %>
 # initial full copy from master
 # run only on slave for the first time
-<% unless p("databases.master") %>
 if [ ! -f $DATA_DIR/postgresql.conf ]; then
   su - vcap -c "echo <%= p("databases.replication_password") %> | $PACKAGE_DIR/bin/pg_basebackup -h <%= p("databases.replication_node2") %> -D $DATA_DIR -U <%= p("databases.replication_user") %> -v -P -X stream"
+  chmod -R 0700 $DATA_DIR
 fi
 
 cp $JOB_DIR/config/recovery.conf $DATA_DIR
 chown vcap:vcap $DATA_DIR/recovery.conf
-<% end %>
-
-# make sure recovery.conf is not on master
-<% if p("databases.master") %>
-if [ -f $DATA_DIR/recovery.conf ]; then
-  rm $DATA_DIR/recovery.conf
-fi
 <% end %>
 
 if [ ! -f $DATA_DIR/postgresql.conf ]; then
@@ -68,6 +67,20 @@ su - vcap -c "$PACKAGE_DIR/bin/pg_ctl -o \"-h $HOST -p $PORT\" \
               -w start -D $DATA_DIR -l \"$DATA_DIR/pg_log/startup.log\""
 
 echo "PostgreSQL started successfully"
+
+<% if p("databases.master") %>
+    # create replication slot on master
+    set +e
+    $PACKAGE_DIR/bin/psql -U vcap -p $PORT -d postgres \
+                        -c "SELECT pg_create_physical_replication_slot('nimbus_replication_slot')"
+    set -e
+<% else %>
+    # make sure there is no replication slot on slave
+    set +e
+    $PACKAGE_DIR/bin/psql -U vcap -p $PORT -d postgres \
+                        -c "SELECT pg_drop_replication_slot('nimbus_replication_slot')"
+    set -e
+<% end %>
 
 echo "Creating roles..."
 <% p("databases.roles", []).each do |role| %>
