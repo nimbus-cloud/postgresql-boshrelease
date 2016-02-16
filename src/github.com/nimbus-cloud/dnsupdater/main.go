@@ -4,9 +4,10 @@ import (
 	"flag"
 	"log"
 	"github.com/nimbus-cloud/dnsupdater/config"
+	"github.com/nimbus-cloud/dnsupdater/dns"
 
 	"github.com/cloudfoundry/bosh-utils/logger"
-	"github.com/nimbus-cloud/dnsupdater/dns"
+
 )
 
 var configFile string
@@ -26,7 +27,12 @@ func main() {
 		log.Fatal("Config file not specified.")
 	}
 
-	logger := logger.NewLogger(logger.LevelInfo)
+	level, err := logger.Levelify(cfg.Logging.Level)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	logger := logger.NewLogger(level)
 	dnsUpdater := dns.NewDnsUpdater(*cfg, logger)
 
 	go dnsUpdater.Run()

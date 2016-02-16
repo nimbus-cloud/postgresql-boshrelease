@@ -13,3 +13,6 @@ dnsservers:
 
 dnskey: ***REMOVED***
 dnsttl: 30
+
+logging:
+  level: INFO  # possible values: DEBUG, INFO, WARN, ERROR, NONE

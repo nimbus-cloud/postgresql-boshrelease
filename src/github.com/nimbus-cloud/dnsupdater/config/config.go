@@ -12,6 +12,11 @@ type Config struct {
 	DnsServers []string        `yaml:"dnsservers"`
 	DnsKey     string          `yaml:"dnskey"`
 	DnsTTL     int             `yaml:"dnsttl"`
+	Logging	   Logging	   `yaml:"logging"`
+}
+
+type Logging struct {
+	Level 	string 		   `yaml:"level"`
 }
 
 func InitConfigFromFile(path string) *Config {
