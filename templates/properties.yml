@@ -1,8 +1,0 @@
-meta:
-  roles: (( merge ))
-  databases: (( merge ))
-
-properties:
-  postgresql:
-    roles: (( meta.roles ))
-    databases: (( meta.databases ))
