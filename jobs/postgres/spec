@@ -47,3 +47,16 @@ properties:
     description: "Replication user"
   databases.replication_password:
     description: "Replication password"
+
+  databases.backup.enable:
+    default: false
+  databases.backup.cron_interval:
+    default: 0 7 * * *
+  databases.backup.retention_days:
+    default: 30
+  databases.backup.mount_point:
+    default: "/var/vcap/services_backup"
+  databases.backup.nfs_server.address:
+    description: "NFS server address to use for backup"
+  databases.backup.nfs_server.export_dir:
+    description: "NFS server export dir for backups"
