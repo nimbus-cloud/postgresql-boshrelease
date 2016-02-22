@@ -1,6 +1,6 @@
 #!/bin/bash
 <%
-conf = p("databases")
+conf = properties.databases
 backup_enabled = conf.backup && conf.backup.enable
 nfs_server = conf.backup && conf.backup.nfs_server
 %>
