@@ -11,10 +11,10 @@ export TIMESTAMP=`date +%Y%m%d-%H%M`
 mkdir -p $BACKUP_DIR
 
 echo "Backup starting: `date`"
-/var/vcap/packages/postgres/bin/pg_dumpall -U vcap -p <%= properties.databases.port %> | gzip -c > $BACKUP_DIR/$TIMESTAMP.all.dbs.out.gz
+/var/vcap/packages/postgres/bin/pg_dumpall -U vcap -p <%= p("databases.port") %> | gzip -c > $BACKUP_DIR/$TIMESTAMP.all.dbs.out.gz
 echo "Backup completed: `date`"
 
-echo "Cleaning up backups older than <%= properties.databases.backup.retention_days %> days.."
-find $BACKUP_DIR -mtime +<%= properties.databases.backup.retention_days %> -exec rm -rvf {} \;
+echo "Cleaning up backups older than <%= p("databases.backup.retention_days") %> days.."
+find $BACKUP_DIR -mtime +<%= p("databases.backup.retention_days") %> -exec rm -rvf {} \;
 
 echo "Done."
