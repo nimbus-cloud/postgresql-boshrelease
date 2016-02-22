@@ -9,6 +9,9 @@ templates:
   postgresql.conf.erb: config/postgresql.conf
   pg_hba.conf.erb: config/pg_hba.conf
   recovery.conf.erb: config/recovery.conf
+  postgres_backup.cron.erb: config/postgres_backup.cron
+  postgres_backup.erb: bin/postgres_backup
+  pg_backup.sh.erb: bin/pg_backup.sh
 
 packages:
   - common

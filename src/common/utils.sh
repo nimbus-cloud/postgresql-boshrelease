@@ -86,3 +86,20 @@ kill_and_wait() {
 running_in_container() {
   grep -q '/instance' /proc/self/cgroup
 }
+
+check_mount() {
+  opts=$1
+  exports=$2
+  mount_point=$3
+
+  if grep -qs $mount_point /proc/mounts; then
+    echo "Found NFS mount $mount_point"
+  else
+    echo "Mounting NFS..."
+    mount $opts $exports $mount_point
+    if [ $? != 0 ]; then
+      echo "Cannot mount NFS from $exports to $mount_point, exiting..."
+      exit 1
+    fi
+  fi
+}

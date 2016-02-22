@@ -47,6 +47,9 @@ case "$1" in
       chown vcap:vcap $LOG_DIR
     fi
 
+    chmod +x $JOB_DIR/bin/postgres_backup
+    $JOB_DIR/bin/postgres_backup start
+
     exec $JOB_DIR/bin/postgres_start.sh
     ;;
 

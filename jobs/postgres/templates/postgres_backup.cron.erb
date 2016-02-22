@@ -1,0 +1,1 @@
+<%= properties.databases.backup.cron_interval %> /var/vcap/jobs/postgres/bin/pg_backup.sh postgresql >> /var/vcap/sys/log/postgres/postgres_backup_cron.log 2>&1
