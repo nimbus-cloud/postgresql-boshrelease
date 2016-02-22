@@ -47,14 +47,19 @@ case "$1" in
       chown vcap:vcap $LOG_DIR
     fi
 
+    <% if p("databases.master") %>
     chmod +x $JOB_DIR/bin/postgres_backup
     $JOB_DIR/bin/postgres_backup start
+    <% end %>
 
     exec $JOB_DIR/bin/postgres_start.sh
     ;;
 
   stop)
     echo "Stopping PostgreSQL: "
+    <% if p("databases.master") %>
+    $JOB_DIR/bin/postgres_backup stop
+    <% end %>
     su - vcap -c "$PACKAGE_DIR/bin/pg_ctl stop -m fast -w -D $DATA_DIR"
     wait_pidfile $PIDFILE
 
