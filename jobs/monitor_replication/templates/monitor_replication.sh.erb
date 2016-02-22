@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+PACKAGE_DIR=/var/vcap/packages/postgres-9.4.5
+PORT="<%= p("databases.port") %>"
+
+<% if p("databases.master") %>
+
+bytes_lag=$($PACKAGE_DIR/bin/psql -U vcap -p $PORT -d postgres -Atc "select (sent_location - replay_location) as bytes_lag from pg_stat_replication ;" 2>/dev/null)
+
+if [ "$bytes_lag" == "0" ]; then
+    exit 1
+else
+    exit 0
+fi
+
+<% else %>
+
+exit 0
+
+<% end %>

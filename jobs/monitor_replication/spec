@@ -1,0 +1,15 @@
+---
+name: monitor_replication
+
+description: "Monitor Postgres replication state"
+
+templates:
+    monitor_replication.sh.erb: bin/monitor_replication.sh
+
+packages: []
+
+properties:
+  databases.port:
+    description: "The database port"
+  databases.master:
+    description: "Boolean: wheather or not a node is replication master"

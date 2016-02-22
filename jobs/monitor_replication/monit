@@ -1,0 +1,4 @@
+check program replication-status with path /var/vcap/jobs/monitor_replication/bin/monitor_replication.sh
+    alert root@localhost on { resource } with reminder on 10 cycles
+    if status != 0 for 10 cycles then alert
+    group vcap_monitor
