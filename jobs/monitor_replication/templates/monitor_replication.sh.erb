@@ -5,7 +5,7 @@ PORT="<%= p("databases.port") %>"
 
 <% if p("databases.master") %>
 
-bytes_lag=$($PACKAGE_DIR/bin/psql -U vcap -p $PORT -d postgres -Atc "select (sent_location - replay_location) as bytes_lag from pg_stat_replication ;" 2>/dev/null)
+bytes_lag=$($PACKAGE_DIR/bin/psql -U vcap -p $PORT -d postgres -Atc "select (sent_location - replay_location) as bytes_lag from pg_stat_replication ;")
 
 if [ "$bytes_lag" == "0" ]; then
     exit 0
