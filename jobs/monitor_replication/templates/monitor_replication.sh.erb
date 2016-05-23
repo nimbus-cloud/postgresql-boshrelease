@@ -7,7 +7,8 @@ PORT="<%= p("databases.port") %>"
 
 bytes_lag=$($PACKAGE_DIR/bin/psql -U vcap -p $PORT -d postgres -Atc "select (sent_location - replay_location) as bytes_lag from pg_stat_replication ;")
 
-if [ "$bytes_lag" == "0" ]; then
+# allowing less than 10240 bytes of drift
+if [ "$bytes_lag" -lt "10240" ]; then
     exit 0
 else
     exit 1
