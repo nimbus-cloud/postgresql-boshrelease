@@ -2,6 +2,4 @@
 standby_mode = 'on'
 primary_conninfo = 'host=<%= p("databases.replication_node2") %> port=<%= p("databases.port") %> user=<%= p("databases.replication_user") %> password=<%= p("databases.replication_password") %>'
 primary_slot_name = 'nimbus_replication_slot'
-max_standby_archive_delay = 900s
-max_standby_streaming_delay = 900s
 # trigger_file = '/tmp/postgresql.trigger'
