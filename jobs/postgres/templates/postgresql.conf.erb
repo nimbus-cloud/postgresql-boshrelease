@@ -46,8 +46,8 @@ max_replication_slots = 1
 <% unless p("databases.master") %>
 hot_standby = on
 hot_standby_feedback = on
-max_standby_archive_delay = 900s
-max_standby_streaming_delay = 900s
+max_standby_archive_delay = 1200s
+max_standby_streaming_delay = 1200s
 <% end %>
 # replication
 
