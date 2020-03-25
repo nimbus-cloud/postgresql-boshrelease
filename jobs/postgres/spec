@@ -31,6 +31,9 @@ properties:
   databases.log_line_prefix:
     description: "The postgres `printf` style string that is output at the beginning of each log line"
     default: "%m: "
+  databases.max_files_per_process:
+    description: "Max amount of files open per process"
+    default: 1000
   databases.collect_statement_statistics:
     description: "Enable the `pg_stat_statements` extension and collect statement execution statistics"
     default: false
