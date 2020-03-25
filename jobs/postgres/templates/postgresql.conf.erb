@@ -22,7 +22,7 @@ authentication_timeout = 1min
 shared_buffers = 128MB
 temp_buffers = 8MB
 
-max_files_per_process = 1000
+max_files_per_process = '<%= p("databases.max_files_per_process") %>'
 
 logging_collector = on
 log_directory = '/var/vcap/sys/log/postgres'
